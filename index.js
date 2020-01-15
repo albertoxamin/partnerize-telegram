@@ -13,7 +13,7 @@ const fetchData = () => {
 		}
 	}).then(response => {
 		let obj = response.data.period.current[0].totals
-		let message = `PARTNERIZE SUMMARY\n\n🖱️ ${obj.clicks} Clicks\n✅ ${obj.conversions_all} Conversions\n\nCommission:\nEUR ${obj.currency.EUR.commissions} \nUSD ${obj.currency.USD.commissions}`
+		let message = `PARTNERIZE SUMMARY ${date.toDateString()} \n\n🖱️ ${obj.clicks} Clicks\n✅ ${obj.conversions_all} Conversions\n\nCommission:\nEUR ${obj.currency.EUR.commissions} \nUSD ${obj.currency.USD.commissions}`
 		axios.default.post('https://api.telegram.org/bot' + process.env.TG + '/sendMessage',
 			{
 				chat_id: process.env.TG_ID,
