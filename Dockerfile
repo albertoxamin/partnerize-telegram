@@ -1,7 +1,6 @@
 
 FROM node:10-alpine
-RUN apt-get update
-RUN apt-get install curl
+RUN apk --no-cache add curl
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install --only=production
