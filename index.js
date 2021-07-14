@@ -3,7 +3,7 @@ const schedule = require('node-schedule')
 
 var exec = require('child_process').exec;
 
-var args = (start, end) => `'https://api.performancehorizon.com/v3/partner/analytics/conversions/count' \
+var args = (start, end) => `'https://api.partnerize.com/v3/partner/analytics/conversions/count' \
 -H 'Connection: keep-alive' \
 -H 'Accept: application/json, text/plain, */*' \
 -H 'Pragma: no-cache' \
@@ -11,7 +11,6 @@ var args = (start, end) => `'https://api.performancehorizon.com/v3/partner/analy
 -H 'Authorization: ${process.env.AUTH}' \
 -H 'Content-Type: application/json' \
 -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36' \
--H 'X-Auth-Claim: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjb25zb2xlLnBhcnRuZXJpemUuY29tIiwic3ViIjoiMTEwMWw1NDAxMCIsImF1ZCI6ImFwaS5wZXJmb3JtYW5jZWhvcml6b24uY29tIiwiaWF0IjoiMTYyNTkxMDY5MSIsIm5iZiI6IjE2MjU5MTA2OTEiLCJleHAiOiIxNjI1OTk3MDkxIn0.jx1k2BuczdJZ0xwZnibJUQDdiYcUCyJPRYhss9VIR3c' \
 -H 'Sec-GPC: 1' \
 -H 'Origin: https://console.partnerize.com' \
 -H 'Sec-Fetch-Site: cross-site' \
