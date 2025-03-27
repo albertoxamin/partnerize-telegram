@@ -49,4 +49,4 @@ const fetchData = () => {
 }
 
 fetchData()
-schedule.scheduleJob('0 8 * * *', fetchData)
+schedule.scheduleJob('0 9 * * *', fetchData)
