@@ -31,9 +31,10 @@ const fetchData = () => {
 		let response = JSON.parse(stdout);
 		console.log(response.data);
 
-		let commission = Number(response.data.total_partner_commission).toFixed(2);
+		let rawCommission = response.data.total_partner_commission;
+		let commission = parseFloat(rawCommission).toFixed(2);
 
-		let message = `PARTNERIZE SUMMARY ${date.toDateString()} \n\n${response.data.total_conversions} Conversions\n\nCommission:\nEUR ${commission}`;
+		let message = `PARTNERIZE SUMMARY ${date.toDateString()}\n\n${response.data.total_conversions} Conversions\n\nCommission:\nEUR ${commission}`;
 
 		axios.default.post('https://api.telegram.org/bot' + process.env.TG + '/sendMessage',
 			{
