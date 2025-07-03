@@ -22,17 +22,19 @@ var args = (start, end) => `'https://api.partnerize.com/v3/partner/analytics/con
 --compressed`;
 
 const fetchData = () => {
-	let date = new Date()
-	let startDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate() - 1, 0, 0, 1))
-	let endDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate() - 1, 23, 59, 59))
+	let date = new Date();
+	let startDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate() - 1, 0, 0, 1));
+	let endDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate() - 1, 23, 59, 59));
+
 	exec('curl ' + args(startDate.toISOString(), endDate.toISOString()), function (error, stdout, stderr) {
 		console.log('stdout: ' + stdout);
 		let response = JSON.parse(stdout);
-		console.log(response.data)
-		let message = `PARTNERIZE SUMMARY ${date.toDateString()} \n\n ${response.data.total_conversions} Conversions\n\nCommission:\nEUR ${response.data.total_partner_commission}`
+		console.log(response.data);
 
-		// let obj = response.data.period.current[0].totals
-		// let message = `PARTNERIZE SUMMARY ${date.toDateString()} \n\n🖱️ ${obj.clicks} Clicks\n✅ ${obj.conversions_all} Conversions\n\nCommission:\nEUR ${obj.currency.EUR.commissions} \nUSD ${obj.currency.USD.commissions}`
+		let commission = Number(response.data.total_partner_commission).toFixed(2);
+
+		let message = `PARTNERIZE SUMMARY ${date.toDateString()} \n\n${response.data.total_conversions} Conversions\n\nCommission:\nEUR ${commission}`;
+
 		axios.default.post('https://api.telegram.org/bot' + process.env.TG + '/sendMessage',
 			{
 				chat_id: process.env.TG_ID,
@@ -42,11 +44,12 @@ const fetchData = () => {
 			}).catch(error => {
 				console.log(error);
 			});
+			
 		if (error !== null) {
 			console.log('exec error: ' + error);
 		}
 	});
-}
+};
 
 fetchData()
 schedule.scheduleJob('0 9 * * *', fetchData)
